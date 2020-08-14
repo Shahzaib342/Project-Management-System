@@ -1,0 +1,31 @@
+/**
+ *
+ * @type {{Created by Shahzaib 14 August,2020}}
+ */
+
+/**
+Global css
+*/
+
+.g-block {
+	display: block!important;
+}
+
+/**
+css for footer
+ */
+.page-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+}
+
+.page-footer div {
+    padding: 10px 0 0 0;
+}
+
+/**
+End
+ */
