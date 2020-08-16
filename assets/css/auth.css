@@ -1,0 +1,20 @@
+/**
+* Created by Shahzaib on 16 August, 2020
+**/
+
+body {
+    background-color: #f8f9fa!important;
+}
+
+.login-wrapper, .register-wrapper {
+    margin:auto;
+}
+
+.wrapper {
+   width: 350px;
+   padding: 20px;
+}
+
+.help-block {
+    color: red;
+}

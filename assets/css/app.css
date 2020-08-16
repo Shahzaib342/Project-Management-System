@@ -3,12 +3,20 @@
  * @type {{Created by Shahzaib 14 August,2020}}
  */
 
+body {
+    font-size: 14px sans-serif;
+}
+
 /**
 Global css
 */
 
 .g-block {
 	display: block!important;
+}
+
+.text-bold {
+	font-weight: bold;
 }
 
 /**

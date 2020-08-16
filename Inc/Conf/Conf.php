@@ -7,8 +7,6 @@ namespace Inc\Conf;
  * @type {{Created by Shahzaib 14 August,2020}}
  */
 
-use PDO;
-
 class Conf
 {
 
@@ -18,13 +16,15 @@ class Conf
         $username = "root";
         $password = "";
         $db = "pms";
-        try {
-            $conn = new PDO("mysql:host=$serverName;dbname=$db", $username, $password);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $conn;
-        } catch (PDOException $e) {
-            return "Connection failed: " . $e->getMessage();
+        /* Attempt to connect to MySQL database */
+        $link = mysqli_connect($serverName, $username, $password, $db);
+
+       // Check connection
+       if($link === false){
+          die("ERROR: Could not connect. " . mysqli_connect_error());
         }
-    }
+       else
+         return $link;
+        }
 
 }
