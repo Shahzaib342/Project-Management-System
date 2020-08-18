@@ -12,11 +12,13 @@
         private $conn;
 
         //construct function to initialize DB Connection
-        function __construct()
+        function __construct($api = false)
         {
-            if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-                header("location: auth/login.php");
-                exit;
+            if(!$api){
+                if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+                    header("location: auth/login.php");
+                    exit;
+                }
             }
             $serverName = "localhost";
             $username = "root";
@@ -119,12 +121,12 @@
                 mysqli_stmt_close($stmt);
             }
         }
-        function allItems()
+        function allItems($field = "id", $order = "ASC")
         {
             $link = $this->conn;            
             //get status id
-            $status = $this->getStatusId("active");
-            $sql = "SELECT `pr`.`id` as id, `pr`.`name` as name, `pr`.`price` as price, `pr`.`quantity` as quantity, `st`.`name` as status_name from `products` `pr` INNER JOIN `statuses` `st` ON `pr`.`status_id` = `st`.`id` WHERE `pr`.`status_id` = ?";
+            $status = $this->getStatusId("archived");
+            $sql = "SELECT `pr`.`id` as id, `pr`.`name` as name, `pr`.`price` as price, `pr`.`quantity` as quantity, `st`.`name` as status_name from `products` `pr` INNER JOIN `statuses` `st` ON `pr`.`status_id` = `st`.`id` WHERE `pr`.`status_id` != ? ORDER BY $field $order";
             
             if($stmt = mysqli_prepare($link, $sql)){
                 mysqli_stmt_bind_param($stmt, "i", $status);            

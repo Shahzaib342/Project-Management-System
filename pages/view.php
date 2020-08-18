@@ -77,21 +77,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <thead class="thead-dark">
         <tr>
         <!-- <th scope="col">#</th> -->
-        <th scope="col">Name</th>
+        <th scope="col">ID &nbsp;&nbsp; <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" onclick="sortItems(event)" name="id" value="asc"> <span class="caret"></span></button></th>
+        <th scope="col">Name&nbsp;&nbsp; <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown"  onclick="sortItems(event)" name="name" value="asc"> <span class="caret"></span></button></th>
         <th scope="col">Price</th>
         <th scope="col">Quantity</th>
-        <th scope="col">Status</th>
+        <th scope="col">Status &nbsp;&nbsp; <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" onclick="sortItems(event)" name="status_id" value="asc"> <span class="caret"></span></button></th>
         <th scope="col-auto">Actions</th>
         </tr>
     </thead>
     <?php if(is_array($allItems) && !empty($allItems)){ ?>
-    <tbody>
+    <tbody id="tableContents">
         <?php foreach($allItems as $items){ ?>
         <tr>
+        <td scope="col"><?php echo $items['id'] ?></td>
         <td scope="col"><?php echo $items['name'] ?></td>
         <td scope="col"><?php echo $items['price'] ?></td>
         <td scope="col"><?php echo $items['quantity'] ?></td>
-        <td scope="col" class="badge badge-success badge-pill m-1"><?php echo $items['status'] ?></td>
+        <td scope="col" class="badge <?php echo ($items['status'] == 'active') ? ' badge-success ' : ' badge-secondary ' ?> badge-pill m-1"><?php echo $items['status'] ?></td>
         <td scope="col-auto">
         <a class="btn btn-sm btn-primary" href="/?edit=<?php echo $items['id'] ?>"> Edit </a> 
         <a class="btn btn-sm btn-dark" href="/?archive=<?php echo $items['id'] ?>"> Archive </a> 
@@ -106,3 +108,20 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </div> -->
 
 </div>
+
+
+<script>
+function sortItems(event){
+    var attribute = event.target;
+    var order =  "";
+    if(attribute.value === "asc"){
+        order =  "desc";
+        attribute.value = order;
+    }else{
+        order =  "asc";
+        attribute.value = order;
+    }
+    var field = attribute.name;
+    var records =  app.sortRecords(order, field);
+}
+</script>
